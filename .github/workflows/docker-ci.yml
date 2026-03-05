@@ -4,23 +4,21 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
   build-test:
-
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Checkout repository
-      uses: actions/checkout@v3
+      - name: Build Docker image
+        run: docker build -t devops-lab-app ./app
 
-    - name: Build Docker image
-      run: docker build -t devops-lab-app ./app
-
-    - name: Run container test
-      run: |
-        docker run -d -p 5000:5000 devops-lab-app
-        sleep 5
-        curl http://localhost:5000
-
+      - name: Run container test
+        run: |
+          docker run -d -p 5000:5000 devops-lab-app
+          sleep 5
+          curl http://localhost:5000
