@@ -37,3 +37,4 @@ PostgreSQL Database
 - CI/CD pipeline
 - Automation scripts
 - Cloud deployment (Azure)
+- CI pipeline test
