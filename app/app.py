@@ -4,10 +4,11 @@ import os
 
 app = Flask(__name__)
 
-DB_HOST = os.getenv("DB_HOST")
-DB_NAME = os.getenv("POSTGRES_DB")
-DB_USER = os.getenv("POSTGRES_USER")
-DB_PASS = os.getenv("POSTGRES_PASSWORD")
+# Read database settings from environment variables
+DB_HOST = os.getenv("DB_HOST", "postgres")
+DB_NAME = os.getenv("POSTGRES_DB", "devopsdb")
+DB_USER = os.getenv("POSTGRES_USER", "devops")
+DB_PASS = os.getenv("POSTGRES_PASSWORD", "Shazam2003")
 
 @app.route("/")
 def home():
@@ -18,7 +19,11 @@ def home():
             user=DB_USER,
             password=DB_PASS
         )
+
+        conn.close()
+
         return "Flask connected to PostgreSQL successfully!"
+
     except Exception as e:
         return f"Database connection failed: {e}"
 
